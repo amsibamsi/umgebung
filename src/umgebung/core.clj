@@ -62,12 +62,8 @@
 (defn config
   "Contains preferences and one or more readers."
   [prefs reader & readers]
-  )
-
-(defn ???
-  "Contains preferences and a writer."
-  [prefs writer]
-  )
+  {:prefs prefs
+   :readers (into [reader] readers)})
 
 ;(defn get-env
 ;  "get environment configuration for configuration keys."
