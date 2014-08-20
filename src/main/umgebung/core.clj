@@ -3,13 +3,15 @@
 
 (defn prop
   "A property."
-  [key value]
-  {key value})
+  [key default doc]
+  {key {:default default
+        :doc doc}})
 
-(defn prefs
+(defn props
   "A set of properties."
   [& props]
-  (merge props))
+  (into {}
+        props))
 
 (defn key->env
   "Convert a key to an environment variable name."
@@ -28,7 +30,7 @@
 (defn key->sys
   "Convert a key to a system property name."
   [key]
-  (s/replace (str key)
+  (s/replace (name key)
              #"-"
              "."))
 
@@ -39,35 +41,25 @@
                       #"\."
                       "-")))
 
-(defn read-env
+(defn get-env
   "Read the environment and return all keys/values."
   []
   (System/getenv))
 
-(defn read-sys
+(defn get-sys
   "Read the system properties and return all keys/values."
   []
   (System/getProperties))
 
-(defn reader
-  "A reader contains a read function to read keys/values and a converter function to translate keys from the source format."
-  [read-fn conv-fn]
-  )
-
-(defn writer
-  "A writer contains a write function to write keys/values and a converter function to translate keys to the target format."
-  [write-fn conv-fn]
-  )
-
-(defn config
-  "Contains preferences and one or more readers."
-  [prefs reader & readers]
-  )
-
-(defn ???
-  "Contains preferences and a writer."
-  [prefs writer]
-  )
+(defn read-props
+  "Read a set of properties from src hashmap converting keys with the conv function to the format of src."
+  [props src conv]
+  (into {}
+        (for [[k v] props]
+          [k (assoc v
+                    :value
+                    (get src
+                         (conv k)))])))
 
 ;(defn get-env
 ;  "get environment configuration for configuration keys."
