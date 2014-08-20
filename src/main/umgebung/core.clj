@@ -60,12 +60,3 @@
                     :value
                     (get src
                          (conv k)))])))
-
-;(defn get-env
-;  "get environment configuration for configuration keys."
-;  [keys]
-;  (into {}
-;        (for [[k v] (select-keys (System/getenv)
-;                                 (map cfg->env
-;                                      keys))]
-;          [(keyword (env->cfg k)) v])))
