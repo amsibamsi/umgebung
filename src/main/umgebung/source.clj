@@ -1,6 +1,5 @@
 (ns umgebung.source
-  (:require [umgebung.core :as c]
-            [umgebung.convert :as v]))
+  (:require [umgebung.convert :as v]))
 
 (defn sys-env
   "Return a hashmap with all environment keys/values."
@@ -19,27 +18,23 @@
    :data data
    :conv conv})
 
-(defn src-sys
+(defn sys
   "The default system properties source."
   []
   (src "system"
        (sys-props)
-       c/conv-sys))
+       v/sys))
 
-(defn src-env
+(defn env
   "The default environment source."
   []
   (src "environment"
        (sys-env)
-       c/conv-env))
+       v/env))
 
-(defn get
-  "Read a property from a source. Returns new property with the value set/overwritten."
-  [src prop]
-  (c/val prop
-         (get (get src
-                   :data)
-              (v/to (get src
-                         :conv)
-                    (get prop
-                         :key)))))
+(defn lookup
+  "Read a key from a source."
+  [src key]
+  (get (:data src)
+       (v/to (:conv src)
+             key)))

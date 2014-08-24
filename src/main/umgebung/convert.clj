@@ -35,13 +35,13 @@
   {:to to-fn
    :from from-fn})
 
-(defn conv-sys
+(defn sys
   "The default system properties converter. Converts :a-key to 'a.key'."
   []
   (conv key->sys
         sys->key))
 
-(defn conv-env
+(defn env
   "The default environment converter. Converts :a-key to 'A_KEY'."
   []
   (conv key->env
@@ -50,13 +50,11 @@
 (defn to
   "Converts a key to a source."
   [conv key]
-  (apply (get conv
-              :to)
+  (apply (:to conv)
          key))
 
 (defn from
   "Converts a key from a source."
   [conv key]
-  (apply (get conv
-              :from)
+  (apply (:from conv)
          key))
