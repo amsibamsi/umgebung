@@ -38,3 +38,30 @@
   (get (:data src)
        (v/to (:conv src)
              key)))
+
+(defn read-prop
+  "Read a property from a source. If there is a value found in source set :value in the property to it."
+  [src prop]
+  (let [k (:key prop)
+        v (lookup src
+                    k)]
+    (if (nil? v)
+      prop
+      (assoc prop
+             :value
+             v))))
+
+(defn read-props
+  "Read a set of properties from a source."
+  [src props]
+  (map #(read-prop src
+                   %)
+       props))
+
+(defn find-props
+  "Read a set of properties from multiple sources. Values found in later sources overwrite values from previous sources."
+  [srcs props]
+  (reduce merge
+          (map #(read-props %
+                            props)
+               srcs)))

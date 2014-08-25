@@ -4,7 +4,7 @@
 (defn key->env
   "Convert a key to an environment variable name."
   [key]
-  (s/upper-case (s/replace (str key)
+  (s/upper-case (s/replace (name key)
                            #"-"
                            "_")))
 
@@ -50,11 +50,9 @@
 (defn to
   "Converts a key to a source."
   [conv key]
-  (apply (:to conv)
-         [key]))
+  ((:to conv) key))
 
 (defn from
   "Converts a key from a source."
   [conv key]
-  (apply (:from conv)
-         [key]))
+  ((:from conv) key))
