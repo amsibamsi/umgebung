@@ -51,10 +51,10 @@
   "Converts a key to a source."
   [conv key]
   (apply (:to conv)
-         key))
+         [key]))
 
 (defn from
   "Converts a key from a source."
   [conv key]
   (apply (:from conv)
-         key))
+         [key]))

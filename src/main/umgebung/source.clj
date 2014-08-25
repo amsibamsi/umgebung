@@ -23,14 +23,14 @@
   []
   (src "system"
        (sys-props)
-       v/sys))
+       (v/sys)))
 
 (defn env
   "The default environment source."
   []
   (src "environment"
        (sys-env)
-       v/env))
+       (v/env)))
 
 (defn lookup
   "Read a key from a source."
