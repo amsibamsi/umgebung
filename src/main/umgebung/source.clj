@@ -61,7 +61,11 @@
 (defn find-props
   "Read a set of properties from multiple sources. Values found in later sources overwrite values from previous sources."
   [srcs props]
-  (reduce merge
-          (map #(read-props %
-                            props)
-               srcs)))
+  (loop [s (first srcs)
+         ss (rest srcs)
+         p props]
+    (if (empty? s)
+      p
+      (recur (first ss)
+             (rest ss)
+             (read-props s p)))))
