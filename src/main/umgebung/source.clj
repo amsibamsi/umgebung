@@ -32,8 +32,8 @@
        (sys-env)
        (v/env)))
 
-(defn lookup
-  "Read a key from a source."
+(defn value
+  "Get the value for a key from a source."
   [src key]
   (get (:data src)
        (v/to (:conv src)
@@ -43,8 +43,8 @@
   "Read a property from a source. If there is a value found in source set :value in the property to it."
   [src prop]
   (let [k (:key prop)
-        v (lookup src
-                    k)]
+        v (value src
+                 k)]
     (if (nil? v)
       prop
       (assoc prop
@@ -69,3 +69,7 @@
       (recur (first ss)
              (rest ss)
              (read-props s p)))))
+
+(defn find-keys
+  "Read a set of keys from multiple sources. Values found in later sources overwrite values from previous sources."
+  )

@@ -1,5 +1,6 @@
 (ns umgebung.core
-  (:require [umgebung.source :as s]))
+  (:require [umgebung.source :as s]
+            [umgebung.property :as p]))
 
 (defn prop
   "A property."
@@ -8,26 +9,24 @@
    :default default
    :doc doc})
 
-(defn propmap
-  "Convert a set of properties to a hashmap where the key is removed from the property and used in the hashmap."
-  [props]
-  (into {}
-        (for [p props]
-          [(:key p)
-           (dissoc p :key)])))
-
-(defn values
-  "Convert a set of properties to a hashmap where only key and value from the property are added."
-  [props]
-  (into {}
-        (for [p props]
-          [(:key p)
-           (:value p)])))
-
 (defn env
-  "Lookup a set of properties in the environment and system properties. Values in the latter overwrite the former. Return a hashmap with keys/values."
+  "Lookup a set of keys in the environment and system properties. Values in the latter overwrite the former. Return a hashmap with keys/values."
+  [keys]
+
+  )
+
+(defn prop-env
+  "Lookup a set of properties in the environment and system properties. Values in the latter overwrite the former. Return a hashmap with keys/properties."
   [props]
-  (values (s/find-props
-             [(s/env)
-              (s/sys)]
-             props)))
+  (p/values (s/find-props
+              [(s/env)
+               (s/sys)]
+              props)))
+
+(defn prop-env-all
+  "Like env, but return the full property instead of just the values."
+  [props]
+  (p/propmap (s/find-props
+               [(s/env)
+                (s/sys)]
+               props)))
