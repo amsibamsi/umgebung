@@ -36,13 +36,13 @@
    :from from-fn})
 
 (defn sys
-  "The default system properties converter. Converts :a-key to 'a.key'."
+  "The default system properties converter. Converts :a-key to \"a.key\"."
   []
   (conv key->sys
         sys->key))
 
 (defn env
-  "The default environment converter. Converts :a-key to 'A_KEY'."
+  "The default environment converter. Converts :a-key to \"A_KEY\"."
   []
   (conv key->env
         env->key))
