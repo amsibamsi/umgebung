@@ -1,4 +1,4 @@
-(defproject umgebung "1.0.1"
+(defproject umgebung "1.0.2"
   :description "Create an application configuration and read properties from the system and the environment."
   :url "https://github.com/amsibamsi/umgebung"
   :license {:name "BSD 2-Clause License"

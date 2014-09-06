@@ -7,8 +7,10 @@ Create an application configuration and read properties from the system and the 
 Add the following to your dependencies:
 
 ```clojure
-:dependencies [[umgebung "1.0.0"]]
+:dependencies [[umgebung "x.y.z"]]
 ```
+
+Where `x.y.z` is the version you want. The lastest version is distributed on http://clojars.org.
 
 ## Usage
 
