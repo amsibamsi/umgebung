@@ -11,24 +11,22 @@
   ([key]
    {:key key}))
 
-(defn prop-env
+(defn prop-cfg
   "Lookup a set of properties in the environment and system properties. Values in the latter overwrite the former. Return a hashmap with keys/values."
   [props]
-  (p/values (s/find-props
-              [(s/env)
-               (s/sys)]
-              props)))
+  (p/values (s/find-props [(s/env)
+                           (s/sys)]
+                          props)))
 
-(defn prop-env-all
+(defn prop-cfg-all
   "Like prop-env, but return the full property instead of just the values."
   [props]
-  (p/propmap (s/find-props
-               [(s/env)
-                (s/sys)]
-               props)))
+  (p/propmap (s/find-props [(s/env)
+                            (s/sys)]
+                           props)))
 
-(defn env
+(defn cfg
   "Lookup a set of keys in the environment and system properties. Values in the latter overwrite the former. Return a hashmap with keys/values."
   [keys]
-    (prop-env (map prop
+    (prop-cfg (map prop
                    keys)))
